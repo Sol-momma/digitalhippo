@@ -38,16 +38,16 @@ export default function Home() {
       <MaxWidthWrapper>
         <div className='py-20 mx-auto text-center flex flex-col items-center max-w-3xl'>
           <h1 className='text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl'>
-            Your marketplace for high-quality{' '}
-            <span className='text-blue-600'>
-              digital assets
+            Your marketplace for high-quality, user-friendly{' '}
+            <span className='text-yellow-600'>
+            Reusable Products
             </span>
-            .
           </h1>
           <p className='mt-6 text-lg max-w-prose text-muted-foreground'>
-            Welcome to ReuseMate. Every asset on our
-            platform is verified by our team to ensure our
-            highest quality standards.
+          高品質で誰にでも使いやすいリユース製品を取り扱うマーケットプレイス 
+          </p>
+          <p className='mt-2 text-lg max-w-prose text-muted-foreground'>
+          為高品質且便利再利用服務而設的市集
           </p>
           <div className='flex flex-col sm:flex-row gap-4 mt-6'>
             <Link
@@ -76,7 +76,7 @@ export default function Home() {
                 key={perk.name}
                 className='text-center md:flex md:items-start md:text-left lg:block lg:text-center'>
                 <div className='md:flex-shrink-0 flex justify-center'>
-                  <div className='h-16 w-16 flex items-center justify-center rounded-full bg-blue-100 text-blue-900'>
+                  <div className='h-16 w-16 flex items-center justify-center rounded-full bg-yellow-100 text-yellow-900'>
                     {<perk.Icon className='w-1/3 h-1/3' />}
                   </div>
                 </div>

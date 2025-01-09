@@ -67,6 +67,10 @@ export const stripeWebhookHandler = async (
         .status(404)
         .json({ error: 'No such user exists.' })
 
+    if (typeof user.email !== 'string' || typeof session.metadata.orderId !== 'string') {
+      return res.status(400).send('Invalid email or orderId');
+    }
+
     const { docs: orders } = await payload.find({
       collection: 'orders',
       depth: 2,
@@ -99,7 +103,7 @@ export const stripeWebhookHandler = async (
     // send receipt
     try {
       const data = await resend.emails.send({
-        from: 'ReuseMate <hello@joshtriedcoding.com>',
+        from: 'ReuseMate <sol0608sol@gmail.com>',
         to: [user.email],
         subject:
           'Thanks for your order! This is your receipt.',
