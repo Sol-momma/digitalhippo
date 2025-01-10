@@ -12,10 +12,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { ArrowRight, Loader2 } from 'lucide-react'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
-import { motion } from "framer-motion";
-import { useEffect, useRef } from "react";
-// import Button from '@/components/ui/button'; // 必要に応じてインポートパスを調整してください
-// import Loader2 from 'path-to-loader2-component'; // Loader2コンポーネントのインポート
 
 import {
   AuthCredentialsValidator,
@@ -25,64 +21,6 @@ import { trpc } from '@/trpc/client'
 import { toast } from 'sonner'
 import { ZodError } from 'zod'
 import { useRouter, useSearchParams } from 'next/navigation'
-
-const ButtonWrapper = ({ isLoading }: { isLoading: boolean }) => {
-  return (
-    <div className="flex min-h-[200px] items-center justify-center bg-slate-800 px-4">
-      <SpotlightButton isLoading={isLoading} />
-    </div>
-  );
-};
-
-const SpotlightButton = ({ isLoading }: { isLoading: boolean }) => {
-  const btnRef = useRef<HTMLButtonElement | null>(null);
-  const spanRef = useRef<HTMLSpanElement | null>(null);
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      const { width } = (e.target as HTMLElement)?.getBoundingClientRect();
-      const offset = e.offsetX;
-      const left = `${(offset / width) * 100}%`;
-
-      spanRef.current!.animate({ left }, { duration: 250, fill: "forwards" });
-    };
-
-    const handleMouseLeave = () => {
-      spanRef.current!.animate(
-        { left: "50%" },
-        { duration: 100, fill: "forwards" }
-      );
-    };
-
-    btnRef?.current?.addEventListener("mousemove", handleMouseMove);
-    btnRef?.current?.addEventListener("mouseleave", handleMouseLeave);
-
-    return () => {
-      btnRef?.current?.removeEventListener("mousemove", handleMouseMove);
-      btnRef?.current?.removeEventListener("mouseleave", handleMouseLeave);
-    };
-  }, []);
-
-  return (
-    <motion.button
-      whileTap={{ scale: 0.985 }}
-      ref={btnRef}
-      className="relative w-full max-w-xs overflow-hidden rounded-lg bg-slate-950 px-4 py-3 text-lg font-medium text-white"
-      disabled={isLoading}
-    >
-      {isLoading && (
-        <Loader2 className='mr-2 h-4 w-4 animate-spin' />
-      )}
-      <span className="pointer-events-none relative z-10 mix-blend-difference">
-        サインイン
-      </span>
-      <span
-        ref={spanRef}
-        className="pointer-events-none absolute left-[50%] top-[50%] h-32 w-32 -translate-x-[50%] -translate-y-[50%] rounded-full bg-slate-100"
-      />
-    </motion.button>
-  );
-};
 
 const Page = () => {
   const searchParams = useSearchParams()
@@ -199,7 +137,12 @@ const Page = () => {
                   )}
                 </div>
 
-                <ButtonWrapper isLoading={isLoading} />
+                <Button disabled={isLoading}>
+                  {isLoading && (
+                    <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+                  )}
+                  Sign in
+                </Button>
               </div>
             </form>
 
